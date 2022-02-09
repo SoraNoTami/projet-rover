@@ -148,10 +148,11 @@ let yourDirection = {
 
 // console.log(grid[rover.y][rover.x])
 prompt.get(yourDirection, function (err, result) {
-    console.log(result.direction);
     pilotRover(result.direction);
-    grid[rover.y][rover.x] = rover.direction
-    console.table(grid)
+    rover.y = rover.y * -1;
+    console.log(rover.y);
+    grid[rover.y][rover.x] = rover.direction;
+    console.table(grid);
 })
 
 
