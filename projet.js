@@ -1,7 +1,8 @@
 const prompt = require("prompt");
 
 let grid = [
-	/*0*/[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+          /*0*//*1*//*2*//*3*//*4*//*5*//*6*//*7*//*8*//*9*/
+	/*0*/ [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	/*-1*/[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	/*-2*/[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	/*-3*/[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -17,7 +18,7 @@ let rover = {
     direction: "N",
     x: 0,
     y: 0,
-    travelLog: [],
+    travelLog: []
 }
 
 function turnLeft() {
@@ -31,7 +32,7 @@ function turnLeft() {
     } else if (rover.direction === "E") {
         rover.direction = "N";
     } else {
-        console.error()
+        console.error("Error in the turnLeft")
     }
     // console.log(rover)
 }
@@ -45,7 +46,7 @@ function turnRight() {
     } else if (rover.direction === "W") {
         rover.direction = "N";
     } else {
-        return console.error();
+        return console.error("Error in the turnRight");
     }
 }
 
@@ -74,6 +75,8 @@ function moveForward() {
         } else {
             console.error('error: this is a wall');
         }
+    } else {
+        console.error("Error in the moveForward")
     }
 }
 
@@ -102,18 +105,10 @@ function moveBackward() {
         } else {
             console.error('error: this is a wall');
         }
+    }else {
+        console.error("Error in the moveBackward")
     }
 }
-
-let yourDirection = {
-    properties: {
-        direction: {
-            pattern: /^[rlfb]{1,}$/,
-            message: 'we only need l or r or f or b without space',
-            required: true
-        },
-    }
-};
 
 function pilotRover(guid) {
     for (i = 0; i < guid.length; i++) {
@@ -131,19 +126,35 @@ function pilotRover(guid) {
             moveBackward();
         }
         else {
-            return console.error()
+            return console.error("Error in the pilotRover")
         }
         rover.travelLog.push(guid.charAt(i))
         console.log(rover)
+      
         
     }
 
 }
 
+let yourDirection = {
+    properties: {
+        direction: {
+            pattern: /^[rlfb]{1,}$/,
+            message: 'we only need l or r or f or b without space',
+            required: true
+        },
+    }
+};
+
+// console.log(grid[rover.y][rover.x])
 prompt.get(yourDirection, function (err, result) {
     console.log(result.direction);
-    pilotRover(result.direction)
+    pilotRover(result.direction);
+    grid[rover.y][rover.x] = rover.direction
+    console.table(grid)
 })
+
+
 
 
 // pilotRover("l")
